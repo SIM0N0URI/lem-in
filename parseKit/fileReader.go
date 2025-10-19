@@ -8,7 +8,7 @@ import (
 
 func ReadFileLines() ([]string, error) {
 	if len(os.Args) != 2 {
-		return nil, fmt.Errorf("$Usage: go run program.go testFile.go")
+		return nil, fmt.Errorf("$Usage: go run program.go testFile.txt")
 	}
 	data, err := os.ReadFile(os.Args[1])
 	if err != nil {
