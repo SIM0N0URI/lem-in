@@ -6,21 +6,21 @@ import (
 	"strings"
 )
 
-func ParseAnts(lines []string) error {
-	for _, line := range lines {
+func ParseAnts(lines []string) ([]string, error) {
+	for i, line := range lines {
 		line = strings.TrimSpace(line)
-		if IsEmpty(line) || IsComment(line) {
+		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
-		num, err := strconv.Atoi(line)
+
+		n, err := strconv.Atoi(line)
 		if err != nil {
-			return fmt.Errorf("invalid ant number: %v", err)
+			return nil, fmt.Errorf("invalid ants number: %s", line)
 		}
-		if num <= 0 {
-			return fmt.Errorf("ant number must be > 0")
-		}
-		AntNum = num
-		return nil
+
+		AntNum = n
+		return lines[i+1:], nil
 	}
-	return fmt.Errorf("no valid ant number found")
+
+	return nil, fmt.Errorf("no ants number found")
 }

@@ -6,18 +6,25 @@ import (
 )
 
 func ParseRooms(lines []string) error {
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" || strings.HasPrefix(line, "#") || strings.Contains(line, "-") {
+	for i, raw := range lines {
+		line := strings.TrimSpace(raw)
+		if line == "" {
+			continue
+		}
+
+		if strings.HasPrefix(line, "#") {
+			continue
+		}
+
+		if strings.Contains(line, "-") {
 			continue
 		}
 
 		var name string
 		var x, y int
 		n, err := fmt.Sscanf(line, "%s %d %d", &name, &x, &y)
-
 		if err != nil || n != 3 {
-			return fmt.Errorf("invalid line found: %q", line)
+			return fmt.Errorf("invalid room line at %d: %q", i+1, line)
 		}
 
 		if strings.HasPrefix(name, "L") || strings.HasPrefix(name, "#") {
@@ -32,5 +39,6 @@ func ParseRooms(lines []string) error {
 
 		Rooms[name] = &Room{Name: name, X: x, Y: y}
 	}
+
 	return nil
 }

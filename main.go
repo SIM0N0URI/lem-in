@@ -13,19 +13,23 @@ func main() {
 		return
 	}
 
-	if err := parsekit.ParseAnts(lines); err != nil {
+	rest, err := parsekit.ParseAnts(lines)
+	if err != nil {
 		fmt.Println("Ant parsing error:", err)
 		return
 	}
-	if err := parsekit.ParseRooms(lines); err != nil {
+
+	if err := parsekit.ParseRooms(rest); err != nil {
 		fmt.Println("Room parsing error:", err)
 		return
 	}
-	if err := parsekit.ParseStartEnd(lines); err != nil {
+
+	if err := parsekit.ParseStartEnd(rest); err != nil {
 		fmt.Println("Start/End parsing error:", err)
 		return
 	}
-	if err := parsekit.ParseTunnels(lines); err != nil {
+
+	if err := parsekit.ParseTunnels(rest); err != nil {
 		fmt.Println("Tunnel parsing error:", err)
 		return
 	}
@@ -36,7 +40,5 @@ func main() {
 	}
 
 	// fmt.Println("✅ Results written to parsed_output.txt successfully!")
-	// for _, Tunnel := range parsekit.Tunnels {
-	// 	fmt.Println(Tunnel)
-	// }
+	fmt.Println("Parsing completed successfully!")
 }
