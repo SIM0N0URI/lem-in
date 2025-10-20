@@ -3,14 +3,14 @@ Start Room: 1
 End Room: 0
 
 Rooms:
-  0 (9, 5)
-  1 (23, 3)
-  2 (16, 7)
-  3 (16, 3)
   4 (16, 5)
   5 (9, 3)
   6 (1, 5)
   7 (4, 8)
+  0 (9, 5)
+  1 (23, 3)
+  2 (16, 7)
+  3 (16, 3)
 
 Tunnels:
 0-4
@@ -26,4 +26,4 @@ Tunnels:
 7-4
 6-5
 
-✅ Parsing completed successfully.
+ Parsing completed successfully.

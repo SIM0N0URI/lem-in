@@ -35,8 +35,8 @@ func main() {
 		return
 	}
 
-	fmt.Println("✅ Results written to parsed_output.txt successfully!")
-	for _, Tunnel := range parsekit.Tunnels {
-		fmt.Println(Tunnel)
-	}
+	// fmt.Println("✅ Results written to parsed_output.txt successfully!")
+	// for _, Tunnel := range parsekit.Tunnels {
+	// 	fmt.Println(Tunnel)
+	// }
 }

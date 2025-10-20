@@ -14,9 +14,10 @@ func ParseRooms(lines []string) error {
 
 		var name string
 		var x, y int
-		_, err := fmt.Sscanf(line, "%s %d %d", &name, &x, &y)
-		if err != nil {
-			continue
+		n, err := fmt.Sscanf(line, "%s %d %d", &name, &x, &y)
+
+		if err != nil || n != 3 {
+			return fmt.Errorf("invalid line found: %q", line)
 		}
 
 		if strings.HasPrefix(name, "L") || strings.HasPrefix(name, "#") {

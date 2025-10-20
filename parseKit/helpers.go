@@ -36,7 +36,7 @@ func WriteParsedOutput(filename string) error {
 		fmt.Fprintf(file, "%s-%s\n", tunnel.From, tunnel.To)
 	}
 
-	fmt.Fprintln(file, "\n✅ Parsing completed successfully.")
+	fmt.Fprintln(file, "\n Parsing completed successfully.")
 
 	return nil
 }
