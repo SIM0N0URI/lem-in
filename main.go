@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 
+	outputkit "toolKit/outputKit"
 	parsekit "toolKit/parseKit"
+	solverkit "toolKit/solverKit"
 )
 
 func main() {
@@ -39,6 +41,7 @@ func main() {
 		return
 	}
 
-	// fmt.Println("✅ Results written to parsed_output.txt successfully!")
-	fmt.Println("Parsing completed successfully!")
+	paths := solverkit.Solve()
+
+	outputkit.PrintAntMovements(paths, parsekit.AntNum)
 }

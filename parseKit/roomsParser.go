@@ -7,21 +7,15 @@ import (
 
 func ParseRooms(lines []string) error {
 	for i, raw := range lines {
+		
 		line := strings.TrimSpace(raw)
-		if line == "" {
-			continue
-		}
-
-		if strings.HasPrefix(line, "#") {
-			continue
-		}
-
-		if strings.Contains(line, "-") {
+		if line == "" || strings.Contains(line, "-") || strings.HasPrefix(line, "#") {
 			continue
 		}
 
 		var name string
 		var x, y int
+
 		n, err := fmt.Sscanf(line, "%s %d %d", &name, &x, &y)
 		if err != nil || n != 3 {
 			return fmt.Errorf("invalid room line at %d: %q", i+1, line)
