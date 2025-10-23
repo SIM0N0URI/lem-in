@@ -8,25 +8,40 @@ import (
 func ParseStartEnd(lines []string) error {
 	for i := 0; i < len(lines); i++ {
 		line := strings.TrimSpace(lines[i])
-		if line == "##start" && i+1 < len(lines) {
-			next := strings.TrimSpace(lines[i+1])
-			name, _, _, err := parseRoomDataStrict(next)
-			if err != nil {
-				return fmt.Errorf("invalid room under ##start: %v", err)
+		if line == "##start" {
+			for j := i + 1; j < len(lines); j++ {
+				next := strings.TrimSpace(lines[j])
+				if next == "" || strings.HasPrefix(next, "#") {
+					continue
+				}
+				name, _, _, err := parseRoomDataStrict(next)
+				if err != nil {
+					return fmt.Errorf("invalid room after ##start at line %d: %v", j+1, err)
+				}
+				StartRoom = name
+				break
 			}
-			StartRoom = name
-		} else if line == "##end" && i+1 < len(lines) {
-			next := strings.TrimSpace(lines[i+1])
-			name, _, _, err := parseRoomDataStrict(next)
-			if err != nil {
-				return fmt.Errorf("invalid room under ##end: %v", err)
+		} else if line == "##end" {
+			for j := i + 1; j < len(lines); j++ {
+				next := strings.TrimSpace(lines[j])
+				if next == "" || strings.HasPrefix(next, "#") {
+					continue
+				}
+				name, _, _, err := parseRoomDataStrict(next)
+				if err != nil {
+					return fmt.Errorf("invalid room after ##end at line %d: %v", j+1, err)
+				}
+				EndRoom = name
+				break
 			}
-			EndRoom = name
 		}
 	}
 
-	if StartRoom == "" || EndRoom == "" {
-		return fmt.Errorf("missing start or end room")
+	if StartRoom == "" {
+		return fmt.Errorf("missing start room (no valid room after ##start)")
+	}
+	if EndRoom == "" {
+		return fmt.Errorf("missing end room (no valid room after ##end)")
 	}
 
 	return nil

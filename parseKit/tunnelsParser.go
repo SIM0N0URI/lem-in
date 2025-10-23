@@ -36,10 +36,9 @@ func ParseTunnels(lines []string) error {
 			return fmt.Errorf("invalid tunnel: %s cannot link to itself", from)
 		}
 
-		roomFrom.Connected = true
-		roomTo.Connected = true
+		roomFrom.Link = append(roomFrom.Link, roomTo)
+		roomTo.Link = append(roomTo.Link, roomFrom)
 
-		Tunnels = append(Tunnels, Tunnel{From: from, To: to})
 	}
 
 	return nil

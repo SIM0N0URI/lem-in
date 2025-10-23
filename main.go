@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 
-	outputkit "toolKit/outputKit"
 	parsekit "toolKit/parseKit"
-	solverkit "toolKit/solverKit"
+	solvekit "toolKit/solveKit"
 )
 
 func main() {
@@ -36,12 +35,31 @@ func main() {
 		return
 	}
 
-	if err := parsekit.WriteParsedOutput("parsed_output.txt"); err != nil {
-		fmt.Println("Error writing output file:", err)
-		return
-	}
+	// if err := parsekit.WriteParsedOutput("parsed_output.txt"); err != nil {
+	// 	fmt.Println("Error writing output file:", err)
+	// 	return
+	// }
 
-	paths := solverkit.Solve()
+	start := parsekit.Rooms[parsekit.StartRoom]
+	end := parsekit.Rooms[parsekit.EndRoom]
 
-	outputkit.PrintAntMovements(paths, parsekit.AntNum)
+	// paths := solvekit.FindDisjointPaths(start, end)
+
+	// if len(paths) == 0 {
+	// 	fmt.Println("No path!")
+	// 	return
+	// }
+
+	// Print all paths (for debugging)
+	// for i, path := range paths {
+	// 	fmt.Printf("Path %d: ", i+1)
+	// 	for j, room := range path {
+	// 		if j > 0 {
+	// 			fmt.Print(" -> ")
+	// 		}
+	// 		fmt.Print(room.Name)
+	// 	}
+	// 	fmt.Println()
+	// }
+	solvekit.Simulate(parsekit.AntNum, start, end)
 }

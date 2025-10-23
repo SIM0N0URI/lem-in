@@ -31,21 +31,12 @@ func WriteParsedOutput(filename string) error {
 		fmt.Fprintf(file, "  %s (%d, %d)\n", name, room.X, room.Y)
 	}
 
-	fmt.Fprintln(file, "\nTunnels:")
-	for _, tunnel := range Tunnels {
-		fmt.Fprintf(file, "%s-%s\n", tunnel.From, tunnel.To)
-	}
+	// fmt.Fprintln(file, "\nTunnels:")
+	// for _, tunnel := range Tunnels {
+	// 	fmt.Fprintf(file, "%s-%s\n", tunnel.From, tunnel.To)
+	// }
 
 	fmt.Fprintln(file, "\n Parsing completed successfully.")
 
-	return nil
-}
-
-func ValidateRoomConnections() error {
-	for _, room := range Rooms {
-		if !room.Connected && !room.IsStart && !room.IsEnd {
-			return fmt.Errorf("room '%s' is not connected to any tunnel", room.Name)
-		}
-	}
 	return nil
 }

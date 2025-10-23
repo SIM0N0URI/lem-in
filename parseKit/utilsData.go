@@ -1,16 +1,11 @@
 package parsekit
 
 type Room struct {
-	Name      string
-	X, Y      int
-	IsStart   bool
-	IsEnd     bool
-	Connected bool
-}
-
-type Tunnel struct {
-	From string
-	To   string
+	Name    string
+	X, Y    int
+	IsStart bool
+	IsEnd   bool
+	Link    []*Room
 }
 
 var (
@@ -19,5 +14,4 @@ var (
 	StartRoom string
 	EndRoom   string
 	Rooms     = make(map[string]*Room)
-	Tunnels   []Tunnel
 )

@@ -14,7 +14,7 @@ func ParseAnts(lines []string) ([]string, error) {
 		}
 
 		n, err := strconv.Atoi(line)
-		if err != nil {
+		if err != nil || n <= 0 {
 			return nil, fmt.Errorf("invalid ants number: %s", line)
 		}
 

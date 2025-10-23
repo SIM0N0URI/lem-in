@@ -6,11 +6,23 @@ import (
 )
 
 func ParseRooms(lines []string) error {
+	tunnelsStarted := false
+
 	for i, raw := range lines {
-		
 		line := strings.TrimSpace(raw)
-		if line == "" || strings.Contains(line, "-") || strings.HasPrefix(line, "#") {
+		if line == "" || strings.HasPrefix(line, "#") {
 			continue
+		}
+
+		isTunnel := strings.Contains(line, "-") && !strings.Contains(line, " ")
+
+		if isTunnel {
+			tunnelsStarted = true
+			continue
+		}
+
+		if tunnelsStarted {
+			return fmt.Errorf("room definition after tunnel at line %d: %q", i+1, line)
 		}
 
 		var name string
@@ -21,8 +33,8 @@ func ParseRooms(lines []string) error {
 			return fmt.Errorf("invalid room line at %d: %q", i+1, line)
 		}
 
-		if strings.HasPrefix(name, "L") || strings.HasPrefix(name, "#") {
-			return fmt.Errorf("invalid room name: %s", name)
+		if strings.HasPrefix(name, "L") {
+			return fmt.Errorf("invalid room name (starts with 'L'): %s", name)
 		}
 
 		for _, r := range Rooms {
